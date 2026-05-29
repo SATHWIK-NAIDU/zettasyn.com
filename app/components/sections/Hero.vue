@@ -16,7 +16,7 @@
 
       <!-- Hero Main Heading -->
       <h1 class="hero-heading">
-        Centralized Infrastructure for <br />
+        Centralized Infrastructure for <br class="br--desktop" />
         <span class="gradient-text">Creative Industries</span>
       </h1>
 
@@ -169,6 +169,10 @@ const metrics = [
   margin-bottom: 24px;
 }
 
+.br--desktop {
+  display: block;
+}
+
 .hero-desc {
   font-family: 'Outfit', sans-serif;
   font-weight: 300;
@@ -237,6 +241,89 @@ const metrics = [
   }
   50% {
     opacity: 0.42;
+  }
+}
+
+/* Mobile & Tablet Responsive Media Queries */
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 110px 20px 60px 20px;
+    min-height: auto; /* Content flows naturally on mobile screen boundaries */
+  }
+
+  .br--desktop {
+    display: none; /* Hide hard line breaks on smaller screens */
+  }
+
+  .hero-heading {
+    font-size: clamp(30px, 7vw, 48px);
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+
+  .hero-desc {
+    font-size: 15px;
+    margin-bottom: 32px;
+    padding: 0 4px;
+  }
+
+  .hero-actions {
+    width: 100%;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 60px;
+    max-width: 300px; /* Elegant constrained buttons on mobile */
+  }
+
+  .hero-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 24px;
+    font-size: 14px;
+  }
+
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2x2 grid layout is balanced and compact */
+    gap: 24px;
+    padding-top: 36px;
+  }
+
+  .metric-value {
+    font-size: 26px;
+  }
+
+  .metric-label {
+    font-size: 11px;
+  }
+
+  .glow-orb--top {
+    width: 250px;
+    height: 250px;
+    top: 5%;
+    left: 5%;
+  }
+
+  .glow-orb--bottom {
+    width: 300px;
+    height: 300px;
+    bottom: 5%;
+    right: 5%;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero-section {
+    padding: 100px 16px 48px 16px;
+  }
+
+  .hero-heading {
+    font-size: 26px;
+  }
+
+  .metrics-grid {
+    grid-template-columns: 1fr; /* Stack vertically on very narrow screens */
+    gap: 20px;
+    padding-top: 28px;
   }
 }
 </style>
