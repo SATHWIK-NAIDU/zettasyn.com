@@ -57,15 +57,16 @@
 import { ref, onMounted, onUnmounted, watch, nextTick } from 'vue'
 
 const navItems = [
-  { label: 'About',     href: '#about' },
-  { label: 'Ecosystem', href: '#ecosystem' },
-  { label: 'Careers',   href: '#careers' },
-  { label: 'Contact',   href: '#contact' },
+  { label: 'Team',       href: '#team' },
+  { label: 'Firms',      href: '#firms' },
+  { label: 'Objectives', href: '#objectives' },
+  { label: 'Careers',    href: '#careers' },
+  { label: 'Contact',    href: '#contact' },
 ]
 
 const scrolled = ref(false)
 const menuOpen = ref(false)
-const activeIdx = ref(0)
+const activeIdx = ref(-1)
 const linkRefs = ref([])
 const linksContainer = ref(null)
 
@@ -86,7 +87,7 @@ function scrollToTop() {
     top: 0,
     behavior: 'smooth'
   })
-  activeIdx.value = 0
+  activeIdx.value = -1
 }
 
 function scrollToSection(href, idx) {
@@ -150,7 +151,7 @@ onMounted(() => {
   }, 150)
 
   // Intersection Observer for scroll tracking
-  const sections = ['about', 'ecosystem', 'careers', 'contact']
+  const sections = ['hero', 'team', 'firms', 'objectives', 'careers', 'contact']
   const observerOptions = {
     root: null,
     rootMargin: '-30% 0px -50% 0px',
@@ -161,9 +162,13 @@ onMounted(() => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         const id = entry.target.getAttribute('id')
-        const idx = navItems.findIndex(item => item.href === `#${id}`)
-        if (idx !== -1) {
-          activeIdx.value = idx
+        if (id === 'hero') {
+          activeIdx.value = -1
+        } else {
+          const idx = navItems.findIndex(item => item.href === `#${id}`)
+          if (idx !== -1) {
+            activeIdx.value = idx
+          }
         }
       }
     })

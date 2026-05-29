@@ -38,9 +38,9 @@
           <p class="callout-desc">
             Explore our parent organization and venture team roles across development, legal affairs, financial operations, and content production.
           </p>
-          <a href="mailto:careers@zettasyn.com" class="gradient-btn callout-btn">
+          <button @click="openCareersEmail" class="gradient-btn callout-btn">
             View Open Roles →
-          </a>
+          </button>
         </div>
       </div>
     </div>
@@ -69,6 +69,25 @@ const values = [
     emoji: '🏆',
   },
 ]
+
+function openCareersEmail() {
+  const to = 'careers@zettasyn.com'
+  const subject = encodeURIComponent('Openings Enquiry')
+  const bodyText = `Name: \nPhone Number: \n\nPlease find my CV attached as a PDF, or linked here: \n\nMessage:\n`
+  const body = encodeURIComponent(bodyText)
+
+  // Simple mobile/tablet detection
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 1024
+
+  if (isMobile) {
+    // Trigger native mail app (e.g. Gmail/Mail) on mobile devices
+    window.location.href = `mailto:${to}?subject=${subject}&body=${body}`
+  } else {
+    // Open Gmail compose window in a new tab on desktop
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${to}&su=${subject}&body=${body}`
+    window.open(gmailUrl, '_blank')
+  }
+}
 </script>
 
 <style scoped>

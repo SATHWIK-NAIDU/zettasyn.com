@@ -1,291 +1,548 @@
 <template>
   <section id="contact" class="contact-section">
-    <div class="contact-container">
-      <!-- Section Header -->
-      <div class="section-header">
-        <span class="section-label block-label">Get In Touch</span>
-        <h2 class="section-title">Connect With Our Leadership</h2>
-        <p class="section-desc">
-          Whether seeking strategic synergy, licensing, or corporate partnership, reach out directly to start the conversation.
-        </p>
-      </div>
-
-      <!-- Dual Column Layout -->
-      <div class="contact-layout">
-        <!-- Left Column: Direct Info -->
-        <div class="info-column">
-          <div>
-            <h3 class="info-title">Inquiries & Partnerships</h3>
-            <p class="info-desc">
-              Our investment and operations leadership actively monitors communications for strategic synergy matching.
-            </p>
-          </div>
-
-          <!-- Contacts Grid -->
-          <div class="contacts-list">
-            <div 
-              v-for="(item, idx) in contacts" 
-              :key="idx" 
-              class="contact-item"
-            >
-              <div class="contact-icon">
-                <component :is="item.icon" />
-              </div>
-              <div>
-                <div class="contact-label">{{ item.title }}</div>
-                <div class="contact-detail">{{ item.detail }}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right Column: Glassmorphic Interactive Form -->
-        <div class="form-column">
-          <div v-if="submitted" class="success-box">
-            <div class="success-icon">✓</div>
-            <h4 class="success-title">Inquiry Sent Successfully</h4>
-            <p class="success-desc">
-              Thank you for reaching out. A partner officer will respond within 24 hours.
-            </p>
-          </div>
-          
-          <form v-else @submit.prevent="handleSubmit" class="contact-form">
-            <div class="form-row">
-              <div class="form-group flex-1">
-                <label class="input-label">Your Name</label>
-                <input
-                  v-model="formState.name"
-                  type="text"
-                  required
-                  placeholder="e.g. Rahul Sharma"
-                  class="form-input"
-                />
-              </div>
-              <div class="form-group flex-1">
-                <label class="input-label">Company</label>
-                <input
-                  v-model="formState.company"
-                  type="text"
-                  placeholder="e.g. Media Venture"
-                  class="form-input"
-                />
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="input-label">Email Address</label>
-              <input
-                v-model="formState.email"
-                type="email"
-                required
-                placeholder="name@company.com"
-                class="form-input"
-              />
-            </div>
-
-            <div class="form-group">
-              <label class="input-label">Inquiry Message</label>
-              <textarea
-                v-model="formState.message"
-                required
-                rows="4"
-                placeholder="Detail the scope of synergy or partnership desired..."
-                class="form-textarea"
-              />
-            </div>
-
-            <button type="submit" class="gradient-btn submit-btn">
-              Send Partnership Message →
-            </button>
-          </form>
-        </div>
-      </div>
+    <div class="contact-trigger-wrapper" ref="triggerWrapper">
+      <button class="command-center-btn" @click="openCommandCenter">
+        <span class="btn-text">Initialize Contact</span>
+        <div class="btn-scanline"></div>
+      </button>
     </div>
+
+    <!-- Immersive Overlay -->
+    <Teleport to="body">
+      <div 
+        class="command-center-overlay" 
+        :class="{ 'is-active': isOpen }"
+        ref="overlay"
+      >
+        <!-- Background Elements -->
+        <div class="overlay-bg"></div>
+        <div class="volumetric-light"></div>
+        
+        <!-- Animated Wireframe/Grid -->
+        <div class="wireframe-grid">
+          <div class="grid-horizontal"></div>
+          <div class="grid-vertical"></div>
+        </div>
+
+        <button class="close-btn" @click="closeCommandCenter">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 6L6 18M6 6l12 12" />
+          </svg>
+        </button>
+
+        <div class="holographic-form-container">
+          <div class="form-header">
+            <h2>Establish Connection</h2>
+            <div class="status-indicator">
+              <span class="dot"></span>
+              <span>Secure Channel</span>
+            </div>
+          </div>
+
+          <Transition name="fade" mode="out-in">
+            <div v-if="isSubmitted" class="success-message">
+              <div class="success-icon">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <h3>Transmission Successful</h3>
+              <p>Our team will be in touch within 6 - 12 hours (except holidays) from your mail received.</p>
+            </div>
+
+            <form v-else class="holo-form" @submit.prevent="submitForm">
+            <div class="input-group">
+              <input type="text" id="name" v-model="form.name" required class="holo-input" placeholder=" " />
+              <label for="name" class="holo-label">Designation (Name)</label>
+              <div class="input-border"></div>
+              <div class="input-glow"></div>
+            </div>
+
+            <div class="input-group">
+              <input type="email" id="email" v-model="form.email" required class="holo-input" placeholder=" " />
+              <label for="email" class="holo-label">Network ID (Email)</label>
+              <div class="input-border"></div>
+              <div class="input-glow"></div>
+            </div>
+
+            <div class="input-group">
+              <input type="tel" id="phone" v-model="form.phone" required class="holo-input" placeholder=" " />
+              <label for="phone" class="holo-label">Comlink Frequency (Mobile)</label>
+              <div class="input-border"></div>
+              <div class="input-glow"></div>
+            </div>
+
+            <div class="input-group">
+              <textarea id="message" v-model="form.message" required class="holo-input holo-textarea" placeholder=" " rows="4"></textarea>
+              <label for="message" class="holo-label">Encrypted Transmission (Message)</label>
+              <div class="input-border"></div>
+              <div class="input-glow"></div>
+            </div>
+
+            <button type="submit" class="submit-btn" ref="submitBtn" @mousemove="onSubmitMove" @mouseleave="onSubmitLeave">
+              <span class="btn-text">Transmit Data</span>
+              <div class="submit-glow"></div>
+            </button>
+            </form>
+          </Transition>
+        </div>
+      </div>
+    </Teleport>
   </section>
 </template>
 
 <script setup>
-import { ref, h } from 'vue'
+import { ref, reactive } from 'vue'
+import gsap from 'gsap'
 
-const formState = ref({
+const isOpen = ref(false)
+const isSubmitted = ref(false)
+const overlay = ref(null)
+
+const form = reactive({
   name: '',
   email: '',
-  company: '',
-  message: '',
+  phone: '',
+  message: ''
 })
-const submitted = ref(false)
 
-const handleSubmit = () => {
-  submitted.value = true
-  setTimeout(() => {
-    submitted.value = false
-    formState.value = { name: '', email: '', company: '', message: '' }
-  }, 3000)
+function openCommandCenter() {
+  isOpen.value = true
+  isSubmitted.value = false
+  form.name = ''
+  form.email = ''
+  form.phone = ''
+  form.message = ''
+  document.body.style.overflow = 'hidden'
+
+  // Cinematic opening sequence
+  const tl = gsap.timeline()
+  
+  tl.set('.command-center-overlay', { display: 'flex' })
+  tl.fromTo('.overlay-bg', 
+    { opacity: 0 },
+    { opacity: 1, duration: 1, ease: 'power2.inOut' }
+  )
+  
+  tl.fromTo('.wireframe-grid',
+    { opacity: 0, scale: 1.5, rotationX: 60 },
+    { opacity: 0.3, scale: 1, rotationX: 45, duration: 1.5, ease: 'power3.out' },
+    "-=0.5"
+  )
+  
+  tl.fromTo('.holographic-form-container',
+    { opacity: 0, y: 100, scale: 0.9, filter: 'blur(20px)' },
+    { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', duration: 1, ease: 'back.out(1.2)' },
+    "-=1"
+  )
+  
+  tl.fromTo('.input-group',
+    { opacity: 0, x: -50 },
+    { opacity: 1, x: 0, duration: 0.6, stagger: 0.1, ease: 'power2.out' },
+    "-=0.5"
+  )
 }
 
-const contacts = [
-  {
-    title: 'Corporate Partnerships',
-    detail: 'partners@zettasyn.com',
-    icon: {
-      render: () => h('svg', { width: '20', height: '20', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', style: { color: 'var(--grad-from)' } }, [
-        h('path', { d: 'M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2' }),
-        h('circle', { cx: '9', cy: '7', r: '4' }),
-        h('path', { d: 'M22 21v-2a4 4 0 0 0-3-3.87' }),
-        h('path', { d: 'M16 3.13a4 4 0 0 1 0 7.75' })
-      ])
+function closeCommandCenter() {
+  const tl = gsap.timeline({
+    onComplete: () => {
+      isOpen.value = false
+      document.body.style.overflow = ''
+      gsap.set('.command-center-overlay', { display: 'none' })
     }
-  },
-  {
-    title: 'Press & Media Relations',
-    detail: 'media@zettasyn.com',
-    icon: {
-      render: () => h('svg', { width: '20', height: '20', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', style: { color: 'var(--grad-to)' } }, [
-        h('path', { d: 'M4 22V4c0-.5.2-1 .6-1.4C5 2.2 5.5 2 6 2h12c.5 0 1 .2 1.4.6.4.4.6.9.6 1.4v18l-4-2-4 2-4-2-4 2z' }),
-        h('path', { d: 'M12 2v16' }),
-        h('path', { d: 'M8 6h8' }),
-        h('path', { d: 'M8 10h8' })
-      ])
+  })
+  
+  tl.to('.holographic-form-container', {
+    opacity: 0,
+    y: 50,
+    scale: 0.95,
+    filter: 'blur(10px)',
+    duration: 0.5,
+    ease: 'power2.in'
+  })
+  
+  tl.to('.wireframe-grid', {
+    opacity: 0,
+    scale: 1.2,
+    duration: 0.5,
+    ease: 'power2.in'
+  }, "-=0.3")
+  
+  tl.to('.overlay-bg', {
+    opacity: 0,
+    duration: 0.5,
+    ease: 'power2.inOut'
+  }, "-=0.2")
+}
+
+function submitForm() {
+  // Simulate transmission animation
+  gsap.to('.submit-btn', {
+    scale: 0.95,
+    duration: 0.1,
+    yoyo: true,
+    repeat: 1
+  })
+  
+  gsap.to('.holographic-form-container', {
+    filter: 'hue-rotate(90deg) brightness(1.5)',
+    duration: 0.5,
+    yoyo: true,
+    repeat: 1,
+    onComplete: () => {
+      const to = 'contact@zettasyn.com'
+      const subject = encodeURIComponent(`Inquiry from ${form.name}`)
+      const bodyText = `Name: ${form.name}\nEmail: ${form.email}\nMobile: ${form.phone}\n\nMessage:\n${form.message}`
+      const body = encodeURIComponent(bodyText)
+
+      // Simple mobile/tablet detection
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 1024;
+
+      if (isMobile) {
+        // Trigger native mail app (e.g. Gmail/Mail) on mobile devices
+        window.location.href = `mailto:${to}?subject=${subject}&body=${body}`
+      } else {
+        // Open Gmail compose window in a new tab on desktop
+        const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${to}&su=${subject}&body=${body}`
+        window.open(gmailUrl, '_blank')
+      }
+
+      // Show success message
+      isSubmitted.value = true
+
+      // Close automatically after 5 seconds
+      setTimeout(() => {
+        if (isOpen.value) closeCommandCenter()
+      }, 5000)
     }
-  },
-  {
-    title: 'Headquarters Location',
-    detail: 'New Delhi, India',
-    icon: {
-      render: () => h('svg', { width: '20', height: '20', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: '2', strokeLinecap: 'round', strokeLinejoin: 'round', style: { color: '#3b82f6' } }, [
-        h('path', { d: 'M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z' }),
-        h('circle', { cx: '12', cy: '10', r: '3' })
-      ])
-    }
-  }
-]
+  })
+}
+
+function onSubmitMove(e) {
+  const btn = e.currentTarget
+  const rect = btn.getBoundingClientRect()
+  const x = e.clientX - rect.left - rect.width / 2
+  const y = e.clientY - rect.top - rect.height / 2
+  
+  gsap.to(btn, {
+    x: x * 0.1,
+    y: y * 0.1,
+    duration: 0.3,
+    ease: 'power2.out'
+  })
+}
+
+function onSubmitLeave(e) {
+  const btn = e.currentTarget
+  gsap.to(btn, {
+    x: 0,
+    y: 0,
+    duration: 0.5,
+    ease: 'elastic.out(1, 0.3)'
+  })
+}
 </script>
 
 <style scoped>
 .contact-section {
-  padding: 100px 24px;
-  background: #09090b;
-  border-top: 1px solid #18181b;
-  position: relative;
-  z-index: 5;
-}
-
-.contact-container {
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.section-header {
-  text-align: center;
-  margin-bottom: 70px;
-}
-
-.block-label {
-  display: block;
-  margin-bottom: 12px;
-}
-
-.section-title {
-  font-family: 'Outfit', sans-serif;
-  font-weight: 700;
-  font-size: clamp(28px, 5vw, 42px);
-  color: #ffffff;
-  letter-spacing: -0.01em;
-  margin-bottom: 16px;
-}
-
-.section-desc {
-  font-family: 'Outfit', sans-serif;
-  font-size: 16px;
-  font-weight: 300;
-  color: #71717a;
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.contact-layout {
+  padding: 120px 24px;
   display: flex;
-  flex-wrap: wrap;
-  gap: 48px;
-  justify-content: space-between;
-  align-items: stretch;
-}
-
-.info-column {
-  flex: 1 1 380px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 40px;
-}
-
-.info-title {
-  font-family: 'Outfit', sans-serif;
-  font-weight: 600;
-  font-size: 24px;
-  color: #ffffff;
-  margin-bottom: 16px;
-}
-
-.info-desc {
-  font-family: 'Outfit', sans-serif;
-  font-size: 15px;
-  line-height: 1.6;
-  color: #a1a1aa;
-  margin-bottom: 28px;
-}
-
-.contacts-list {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.contact-item {
-  display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 16px;
-  padding: 16px;
-  border-radius: 12px;
-  background: rgba(24, 24, 27, 0.4);
-  border: 1px solid #1f1f23;
+  min-height: 50vh;
 }
 
-.contact-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
-  background: rgba(39, 39, 42, 0.4);
+.command-center-btn {
+  position: relative;
+  background: rgba(17, 17, 21, 0.8);
+  border: 1px solid var(--grad-to);
+  color: #fff;
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 600;
+  padding: 24px 64px;
+  cursor: pointer;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+
+.command-center-btn:hover {
+  box-shadow: 0 0 40px rgba(0, 240, 255, 0.4), inset 0 0 20px rgba(0, 240, 255, 0.2);
+  transform: scale(1.02);
+}
+
+.btn-scanline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--grad-to);
+  opacity: 0.5;
+  box-shadow: 0 0 10px var(--grad-to);
+  animation: scan 2s linear infinite;
+}
+
+@keyframes scan {
+  0% { top: -10%; }
+  100% { top: 110%; }
+}
+
+/* Command Center Overlay */
+.command-center-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  perspective: 1000px;
+}
+
+.overlay-bg {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 5, 5, 0.95);
+  backdrop-filter: blur(20px);
+  z-index: 0;
+}
+
+.volumetric-light {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center 30%, rgba(28, 82, 246, 0.15) 0%, transparent 60%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.wireframe-grid {
+  position: absolute;
+  inset: -50%;
+  background-image: 
+    linear-gradient(rgba(0, 240, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 240, 255, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+  z-index: 1;
+  transform-origin: center center;
+  pointer-events: none;
+}
+
+.close-btn {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.3s;
 }
 
-.contact-label {
-  font-size: 11px;
-  color: #71717a;
+.close-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--grad-to);
+  color: var(--grad-to);
+  transform: rotate(90deg);
+}
+
+.holographic-form-container {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  max-width: 600px;
+  background: rgba(10, 10, 12, 0.7);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  border-radius: 16px;
+  padding: 48px;
+  box-shadow: 
+    0 30px 60px rgba(0, 0, 0, 0.8),
+    inset 0 0 40px rgba(0, 240, 255, 0.05);
+  transform-style: preserve-3d;
+}
+
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 16px;
+}
+
+.form-header h2 {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  color: #fff;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
 }
 
-.contact-detail {
-  font-size: 15px;
-  color: #ffffff;
-  font-weight: 500;
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--grad-to);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 
-.form-column {
-  flex: 1 1 480px;
-  background: linear-gradient(135deg, rgba(24,24,27,0.3) 0%, rgba(9,9,11,0.5) 100%);
-  border: 1px solid #27272a;
-  border-radius: 20px;
-  padding: 40px;
-  box-shadow: 0 20px 45px rgba(0,0,0,0.4);
-  backdrop-filter: blur(12px);
+.status-indicator .dot {
+  width: 6px;
+  height: 6px;
+  background: var(--grad-to);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--grad-to);
+  animation: pulse-dot 1.5s infinite;
 }
 
-.success-box {
-  height: 100%;
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.holo-form {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.input-group {
+  position: relative;
+}
+
+.holo-input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 16px 16px 12px 16px;
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 16px;
+  transition: background 0.3s;
+  outline: none;
+}
+
+.holo-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.holo-label {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--text-secondary);
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.input-border {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: var(--grad-to);
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.input-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.1), transparent 70%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.holo-input:focus,
+.holo-input:not(:placeholder-shown) {
+  background: rgba(0, 240, 255, 0.05);
+}
+
+.holo-input:focus ~ .holo-label,
+.holo-input:not(:placeholder-shown) ~ .holo-label {
+  top: -10px;
+  font-size: 11px;
+  color: var(--grad-to);
+}
+
+.holo-input:focus ~ .input-border {
+  width: 100%;
+}
+
+.holo-input:focus ~ .input-glow {
+  opacity: 1;
+}
+
+.submit-btn {
+  margin-top: 16px;
+  background: linear-gradient(135deg, rgba(28, 82, 246, 0.2), rgba(0, 240, 255, 0.2));
+  border: 1px solid rgba(0, 240, 255, 0.5);
+  color: #fff;
+  padding: 16px;
+  font-family: var(--font-heading);
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  cursor: pointer;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+
+.submit-btn:hover {
+  background: linear-gradient(135deg, rgba(28, 82, 246, 0.4), rgba(0, 240, 255, 0.4));
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+}
+
+.submit-glow {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 50%);
+  opacity: 0;
+  transform: translate(0, 0);
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.submit-btn:hover .submit-glow {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .holographic-form-container {
+    padding: 24px;
+    margin: 16px;
+  }
+  
+  .form-header h2 {
+    font-size: 18px;
+  }
+}
+
+/* Success Message Styles */
+.success-message {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -295,90 +552,40 @@ const contacts = [
 }
 
 .success-icon {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background: rgba(34, 197, 94, 0.1);
-  border: 1px solid #22c55e;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #22c55e;
-  font-size: 28px;
+  color: var(--grad-to);
   margin-bottom: 24px;
+  animation: float-success 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.5));
 }
 
-.success-title {
-  font-family: 'Outfit', sans-serif;
-  color: #ffffff;
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 8px;
+@keyframes float-success {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
 }
 
-.success-desc {
-  font-family: 'Outfit', sans-serif;
-  color: #a1a1aa;
-  font-size: 14px;
-}
-
-.contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.form-row {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.flex-1 {
-  flex: 1 1 200px;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.input-label {
-  font-size: 12px;
-  font-weight: 500;
-  color: #a1a1aa;
+.success-message h3 {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  color: #fff;
+  margin-bottom: 16px;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.1em;
 }
 
-.form-input {
-  padding: 12px 16px;
-  background: rgba(9, 9, 11, 0.6);
-  border: 1px solid #27272a;
-  border-radius: 8px;
-  color: #ffffff;
-  font-size: 14px;
-  font-family: 'Outfit', sans-serif;
-  outline: none;
+.success-message p {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 80%;
 }
 
-.form-textarea {
-  padding: 12px 16px;
-  background: rgba(9, 9, 11, 0.6);
-  border: 1px solid #27272a;
-  border-radius: 8px;
-  color: #ffffff;
-  font-size: 14px;
-  font-family: 'Outfit', sans-serif;
-  outline: none;
-  resize: none;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
 }
-
-.submit-btn {
-  padding: 14px 20px;
-  border-radius: 8px;
-  font-size: 14px;
-  margin-top: 8px;
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

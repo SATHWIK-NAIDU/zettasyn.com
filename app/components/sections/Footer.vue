@@ -26,14 +26,14 @@
         <div class="links-column">
           <h4 class="column-title">Ecosystem</h4>
           <div class="links-list">
-            <a 
-              v-for="link in ['Media', 'Esports', 'Studios', 'Infrastructure']" 
-              :key="link" 
-              href="#ecosystem" 
+            <NuxtLink 
+              v-for="link in ecosystemLinks" 
+              :key="link.label" 
+              :to="link.to" 
               class="footer-link"
             >
-              {{ link }} Ventures
-            </a>
+              {{ link.label }}
+            </NuxtLink>
           </div>
         </div>
 
@@ -41,14 +41,14 @@
         <div class="links-column">
           <h4 class="column-title">Corporate</h4>
           <div class="links-list">
-            <a 
-              v-for="link in ['About Us', 'Careers', 'Leadership', 'Contact']" 
-              :key="link" 
-              :href="link === 'Careers' ? '#careers' : link === 'Contact' ? '#contact' : '#about'" 
+            <NuxtLink 
+              v-for="link in corporateLinks" 
+              :key="link.label" 
+              :to="link.to" 
               class="footer-link"
             >
-              {{ link }}
-            </a>
+              {{ link.label }}
+            </NuxtLink>
           </div>
         </div>
 
@@ -64,14 +64,14 @@
             >
               Team Portal ↗
             </a>
-            <a 
-              v-for="link in ['Terms of Service', 'Privacy Policy']" 
-              :key="link" 
-              href="#" 
+            <NuxtLink 
+              v-for="link in platformLinks" 
+              :key="link.label" 
+              :to="link.to" 
               class="footer-link"
             >
-              {{ link }}
-            </a>
+              {{ link.label }}
+            </NuxtLink>
           </div>
         </div>
       </div>
@@ -94,6 +94,25 @@ import { computed } from 'vue'
 
 const currentYear = computed(() => new Date().getFullYear())
 const socialIcons = ['𝕏', '💼', '📸', '🎥']
+
+const ecosystemLinks = [
+  { label: 'Media Ventures', to: { path: '/', hash: '#firms' } },
+  { label: 'Esports Ventures', to: { path: '/', hash: '#firms' } },
+  { label: 'Studios Ventures', to: { path: '/', hash: '#firms' } },
+  { label: 'Infrastructure', to: { path: '/', hash: '#firms' } }
+]
+
+const corporateLinks = [
+  { label: 'About Us', to: { path: '/', hash: '#objectives' } },
+  { label: 'Careers', to: { path: '/', hash: '#careers' } },
+  { label: 'Leadership', to: { path: '/', hash: '#team' } },
+  { label: 'Contact', to: { path: '/', hash: '#contact' } }
+]
+
+const platformLinks = [
+  { label: 'Terms of Service', to: '/terms' },
+  { label: 'Privacy Policy', to: '/privacy' }
+]
 </script>
 
 <style scoped>

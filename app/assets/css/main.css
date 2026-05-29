@@ -1,15 +1,21 @@
 :root {
-    --bg-primary: #09090b;
-    --bg-secondary: #18181b;
-    --bg-surface: #27272a;
-    --border-subtle: #3f3f46;
-    --border-default: #52525b;
+    --bg-primary: #050505;
+    --bg-secondary: #0a0a0c;
+    --bg-surface: #111115;
+    --border-subtle: rgba(255, 255, 255, 0.05);
+    --border-default: rgba(255, 255, 255, 0.1);
+    --border-glow: rgba(0, 240, 255, 0.3);
+    
     --text-primary: #ffffff;
-    --text-secondary: #d4d4d8;
-    --text-muted: #71717a;
-    --grad-from: #7d11d8;
-    --grad-to: #d7204d;
-    --grad-glow: #db2777;
+    --text-secondary: #a1a1aa;
+    --text-muted: #52525b;
+    
+    --grad-from: #1c52f6;
+    --grad-to: #00f0ff;
+    --grad-accent: #9d00ff;
+
+    --font-heading: 'Space Grotesk', sans-serif; /* Fallback for the custom ZettaSyn font */
+    --font-body: 'Outfit', sans-serif;
 }
 
 *,
@@ -21,16 +27,16 @@
 }
 
 html {
-    scroll-behavior: smooth;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
 }
 
 body {
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--font-body);
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
+    background: transparent; /* Allows WebGL background to show through if placed on body/html */
 }
 
 ::selection {
@@ -38,95 +44,55 @@ body {
     color: #fff;
 }
 
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+}
+
 .gradient-text {
-    background: linear-gradient(to right, #a855f7, #ec4899);
+    background: linear-gradient(135deg, var(--grad-from), var(--grad-to));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
-.gradient-btn {
-    background: linear-gradient(to right, var(--grad-from), var(--grad-to));
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    font-family: 'Outfit', sans-serif;
-    font-weight: 500;
-    transition: opacity 0.2s ease, transform 0.15s ease;
-}
-
-.gradient-btn:hover {
-    opacity: 0.88;
-    transform: translateY(-1px);
-}
-
-.ghost-btn {
-    background: transparent;
-    color: var(--text-secondary);
+/* Glassmorphism & UI */
+.glass-panel {
+    background: rgba(17, 17, 21, 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border: 1px solid var(--border-subtle);
-    cursor: pointer;
-    font-family: 'Outfit', sans-serif;
-    font-weight: 500;
-    transition: border-color 0.2s ease, color 0.2s ease;
+    border-radius: 16px;
 }
 
-.ghost-btn:hover {
-    border-color: var(--border-default);
-    color: var(--text-primary);
+/* Lenis Smooth Scrolling */
+html.lenis, html.lenis body {
+  height: auto;
 }
 
-.section-label {
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text-muted);
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
 }
 
-@keyframes fadeUp {
-    from {
-        opacity: 0;
-        transform: translateY(24px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
 }
 
-@keyframes glowPulse {
-
-    0%,
-    100% {
-        opacity: 0.25;
-    }
-
-    50% {
-        opacity: 0.42;
-    }
+.lenis.lenis-stopped {
+  overflow: hidden;
 }
 
-.fade-up {
-    animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
 }
 
-.delay-1 {
-    animation-delay: 0.1s;
-}
-
-.delay-2 {
-    animation-delay: 0.2s;
-}
-
-.delay-3 {
-    animation-delay: 0.3s;
-}
-
-.delay-4 {
-    animation-delay: 0.4s;
-}
-
-.delay-5 {
-    animation-delay: 0.5s;
+/* Global Utility */
+.canvas-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
 }

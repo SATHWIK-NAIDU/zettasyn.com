@@ -1,8 +1,9 @@
 <template>
   <main class="home">
     <Hero />
-    <Ecosystem />
-    <Backbone />
+    <TeamSection />
+    <FirmsSection />
+    <ObjectivesSection />
     <CareersSection />
     <ContactSection />
     <Footer />
@@ -17,7 +18,7 @@ useHead({
 
 <style scoped>
 .home {
-  background: var(--bg-primary);
+  background: transparent;
   min-height: 100vh;
 }
 </style>
