@@ -233,4 +233,28 @@ function openCareersEmail() {
   text-decoration: none;
   box-shadow: 0 4px 15px rgba(215, 32, 77, 0.2);
 }
+
+@media (max-width: 768px) {
+  .careers-section {
+    padding: 80px 16px;
+  }
+  .section-header {
+    margin-bottom: 40px;
+  }
+  .culture-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+  .value-card {
+    padding: 24px;
+  }
+  .callout-box {
+    padding: 36px 20px;
+    border-radius: 16px;
+  }
+  .callout-title {
+    font-size: 22px;
+  }
+}
 </style>

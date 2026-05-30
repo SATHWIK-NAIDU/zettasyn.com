@@ -412,4 +412,28 @@ function expandTeam() {
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
+
+@media (max-width: 768px) {
+  .team-section {
+    padding: 80px 16px;
+  }
+  .section-title {
+    margin-bottom: 40px;
+  }
+  .founders-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+  .founder-card {
+    max-width: 320px;
+    margin: 0 auto;
+  }
+  .explore-wrapper {
+    margin-bottom: 40px;
+  }
+  .extended-grid {
+    padding-top: 24px;
+  }
+}
 </style>

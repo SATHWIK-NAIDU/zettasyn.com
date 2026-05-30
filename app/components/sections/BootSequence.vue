@@ -11,7 +11,12 @@
 
     <div class="boot-content">
       <div class="message" ref="messageEl">
-        <SplitText text="POWER OF A MILLION MINDS CONNECTED BY SYNERGY" />
+        <div class="message-line">
+          <SplitText text="POWER OF A MILLION MINDS" />
+        </div>
+        <div class="message-line">
+          <SplitText text="CONNECTED BY SYNERGY" />
+        </div>
       </div>
 
       <div class="logo-container" ref="logoContainerEl">
@@ -283,6 +288,10 @@ onBeforeUnmount(() => {
   text-align: center;
   width: 100%;
   max-width: 800px;
+  height: 300px; /* Contain text and logo centered on all screen formats */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .message {
@@ -294,6 +303,15 @@ onBeforeUnmount(() => {
   text-transform: uppercase;
   text-shadow: 0 0 15px rgba(255, 255, 255, 0.35);
   display: block;
+  width: 100%;
+}
+
+.message-line {
+  display: inline-block;
+}
+
+.message-line:first-child {
+  margin-right: 0.25em;
 }
 
 .logo-container {
@@ -344,5 +362,52 @@ onBeforeUnmount(() => {
   background: rgba(255, 255, 255, 0.08);
   color: #fff;
   border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Tablet & Mobile Responsiveness queries */
+@media (max-width: 768px) {
+  .boot-content {
+    max-width: 92%;
+    height: 240px;
+  }
+  .message {
+    font-size: 11px;
+    line-height: 1.5;
+    letter-spacing: 0.12em;
+    padding: 0 12px;
+  }
+  .message-line {
+    display: block;
+    margin-bottom: 6px;
+    margin-right: 0;
+  }
+  .message-line:last-child {
+    margin-bottom: 0;
+  }
+  .boot-logo-img {
+    max-width: 260px; /* Scaled perfectly for small screens */
+  }
+  .skip-btn {
+    bottom: 24px;
+    right: 50%;
+    transform: translateX(50%); /* Centered easy thumb-target on mobiles */
+    font-size: 9px;
+    padding: 6px 12px;
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .boot-content {
+    max-width: 85%;
+    height: 270px;
+  }
+  .boot-logo-img {
+    max-width: 340px; /* Tablet-optimized logo size */
+  }
+  .skip-btn {
+    bottom: 32px;
+    right: 32px;
+  }
 }
 </style>

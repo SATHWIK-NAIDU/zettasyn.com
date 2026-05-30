@@ -588,4 +588,44 @@ function onSubmitLeave(e) {
 .fade-leave-to {
   opacity: 0;
 }
+
+@media (max-width: 768px) {
+  .contact-section {
+    padding: 60px 16px;
+  }
+  .command-center-btn {
+    font-size: 18px;
+    padding: 16px 32px;
+    width: 100%;
+    max-width: 280px;
+    text-align: center;
+  }
+  .close-btn {
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+  }
+  .holographic-form-container {
+    padding: 24px 16px;
+    margin: 16px;
+    max-width: 92%;
+  }
+  .form-header {
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+  }
+  .form-header h2 {
+    font-size: 18px;
+  }
+  .status-indicator {
+    font-size: 10px;
+  }
+  .holo-form {
+    gap: 20px;
+  }
+  .success-message p {
+    max-width: 100%;
+  }
+}
 </style>

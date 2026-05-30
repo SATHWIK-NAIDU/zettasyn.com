@@ -388,4 +388,28 @@ function onCardLeave(index) {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+@media (max-width: 768px) {
+  .objectives-section {
+    padding: 80px 16px;
+  }
+  .title-wrapper {
+    margin-bottom: 40px;
+  }
+  .mission-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .mission-card {
+    aspect-ratio: auto;
+    min-height: 220px;
+  }
+  .card-glass {
+    padding: 24px;
+  }
+  .mission-title {
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+}
 </style>

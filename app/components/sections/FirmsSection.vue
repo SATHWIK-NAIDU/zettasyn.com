@@ -539,5 +539,30 @@ function onTileLeave(e) {
     transform: rotate(360deg);
   }
 }
+
+@media (max-width: 768px) {
+  .firms-section {
+    padding: 80px 16px;
+  }
+  .section-desc {
+    margin-bottom: 40px;
+  }
+  .firms-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .firm-tile {
+    padding: 24px 20px;
+  }
+  .connections {
+    display: none !important;
+  }
+  .firm-name {
+    font-size: 20px;
+  }
+  .firm-desc {
+    font-size: 13px;
+  }
+}
 </style>
 

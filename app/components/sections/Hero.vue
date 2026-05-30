@@ -451,12 +451,19 @@ function onBtnLeave(e) {
 
 @media (max-width: 768px) {
   .hero-heading {
-    font-size: clamp(36px, 10vw, 48px);
+    font-size: clamp(32px, 8vw, 44px);
+    line-height: 1.15;
   }
   .hero-actions {
     flex-direction: column;
     width: 100%;
     max-width: 300px;
+  }
+  .tactical-ui {
+    display: none !important;
+  }
+  .scroll-indicator {
+    display: none !important;
   }
 }
 </style>
