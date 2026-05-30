@@ -4,7 +4,7 @@
 
       <!-- Wordmark -->
       <a href="#about" class="navbar__wordmark" @click.prevent="scrollToTop">
-        ZETTASYN
+        <img src="/logo.png" alt="Zettasyn Logo" class="navbar__logo-img" />
       </a>
 
       <!-- Desktop links -->
@@ -83,10 +83,17 @@ function onScroll() {
 }
 
 function scrollToTop() {
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth'
-  })
+  if (typeof window !== 'undefined' && window.lenis) {
+    window.lenis.scrollTo(0, {
+      duration: 1.6,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+    })
+  } else {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
+  }
   activeIdx.value = -1
 }
 
@@ -94,14 +101,22 @@ function scrollToSection(href, idx) {
   const id = href.replace('#', '')
   const el = document.getElementById(id)
   if (el) {
-    const navbarHeight = 64
-    const elementPosition = el.getBoundingClientRect().top + window.scrollY
-    const offsetPosition = elementPosition - navbarHeight
-    
-    window.scrollTo({
-      top: offsetPosition,
-      behavior: 'smooth'
-    })
+    if (typeof window !== 'undefined' && window.lenis) {
+      window.lenis.scrollTo(el, {
+        offset: -64,
+        duration: 1.6,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+      })
+    } else {
+      const navbarHeight = 64
+      const elementPosition = el.getBoundingClientRect().top + window.scrollY
+      const offsetPosition = elementPosition - navbarHeight
+      
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      })
+    }
     
     activeIdx.value = idx
   }
@@ -218,16 +233,21 @@ onUnmounted(() => {
 }
 
 .navbar__wordmark {
-  font-weight: 700;
-  font-size: 18px;
-  letter-spacing: 0.08em;
-  color: #fff;
+  display: flex;
+  align-items: center;
   text-decoration: none;
   transition: opacity 0.2s ease;
 }
 
 .navbar__wordmark:hover {
-  opacity: 0.9;
+  opacity: 0.85;
+}
+
+.navbar__logo-img {
+  height: 150px;
+  width: auto;
+  display: block;
+  object-fit: contain;
 }
 
 .navbar__links {

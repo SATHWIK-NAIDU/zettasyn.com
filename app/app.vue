@@ -49,6 +49,11 @@ onMounted(() => {
     infinite: false,
   })
 
+  // Expose lenis globally for seamless cross-component scroll control!
+  if (typeof window !== 'undefined') {
+    window.lenis = lenis
+  }
+
   function raf(time) {
     lenis.raf(time)
     requestAnimationFrame(raf)
