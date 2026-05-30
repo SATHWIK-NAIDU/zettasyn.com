@@ -16,8 +16,8 @@
           <div class="card-inner">
             <div class="holographic-border"></div>
             <div class="image-wrapper">
-              <!-- Placeholder image, using a gradient for now -->
-              <div class="placeholder-img"></div>
+              <img v-if="founder.image" :src="founder.image" :alt="founder.name" class="team-img" />
+              <div v-else class="placeholder-img"></div>
             </div>
             <div class="card-info">
               <h3 class="founder-name">{{ founder.name }}</h3>
@@ -47,7 +47,8 @@
             <div class="card-inner">
               <div class="holographic-border"></div>
               <div class="image-wrapper">
-                <div class="placeholder-img"></div>
+                <img v-if="member.image" :src="member.image" :alt="member.name" class="team-img" />
+                <div v-else class="placeholder-img"></div>
               </div>
               <div class="card-info">
                 <h3 class="founder-name">{{ member.name }}</h3>
@@ -77,17 +78,17 @@ const exploreWrapper = ref(null)
 const isExpanded = ref(false)
 
 const founders = [
-  { name: 'Founder One', role: 'Chief Executive Officer' },
-  { name: 'Founder Two', role: 'Chief Operations Officer' },
-  { name: 'Founder Three', role: 'Chief Technology Officer' },
-  { name: 'Founder Four', role: 'Chief Creative Officer' }
+  { name: 'Sathwik Mallam', role: 'Chief Executive Officer', image: '/team/sathwik.jpg' },
+  { name: 'Akash Saha', role: 'Chief Operations Officer', image: '/team/akash.jpg' },
+  { name: 'Himanshu Mahajan', role: 'Chief Technology Officer', image: '/team/himanshu.jpg' },
+  { name: 'Divyansh Jain', role: 'Chief Creative Officer', image: '/team/divyansh.jpg' }
 ]
 
 const extendedTeam = [
-  { name: 'Leader Five', role: 'Head of Media' },
-  { name: 'Leader Six', role: 'Head of Infrastructure' },
-  { name: 'Leader Seven', role: 'Creative Director' },
-  { name: 'Leader Eight', role: 'Technical Director' }
+  { name: 'Bhavin', role: 'Head of Media', image: '/team/bhavin.jpg' },
+  { name: 'Bhumesh Sutar', role: 'Head of Infrastructure', image: '/team/bhumesh.jpg' },
+  { name: 'Rishikesh Khade', role: 'Creative Director', image: '/team/rishikesh.jpg' },
+  { name: 'Sarthak Kadam', role: 'Technical Director', image: '/team/sarthak.jpg' } 
 ]
 
 onMounted(() => {
@@ -242,6 +243,7 @@ function expandTeam() {
   border: 1px solid var(--border-subtle);
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
   transform-style: preserve-3d;
   transition: box-shadow 0.3s;
 }
@@ -262,21 +264,30 @@ function expandTeam() {
 }
 
 .image-wrapper {
-  flex: 1;
-  width: 100%;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: rgba(0, 0, 0, 0.5);
   overflow: hidden;
-  position: relative;
+}
+
+.team-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.7;
+  transition: opacity 0.4s, transform 0.4s;
+}
+
+.founder-card:hover .team-img {
+  opacity: 1;
+  transform: scale(1.05);
 }
 
 .placeholder-img {
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #1c1c22, #2a2a35);
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.founder-card:hover .placeholder-img {
-  transform: scale(1.05);
+  background: linear-gradient(135deg, rgba(28, 82, 246, 0.1), rgba(157, 0, 255, 0.1));
 }
 
 .card-info {
