@@ -71,7 +71,7 @@ const values = [
 ]
 
 function openCareersEmail() {
-  const to = 'careers@zettasyn.com'
+  const to = 'contact@zettasyn.com'
   const subject = encodeURIComponent('Openings Enquiry')
   const bodyText = `Name: \nPhone Number: \n\nPlease find my CV attached as a PDF, or linked here: \n\nMessage:\n`
   const body = encodeURIComponent(bodyText)
