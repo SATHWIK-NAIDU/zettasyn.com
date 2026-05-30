@@ -85,10 +85,10 @@ const founders = [
 ]
 
 const extendedTeam = [
-  { name: 'Bhavin', role: 'Head of Media', image: '/team/bhavin.jpg' },
-  { name: 'Bhumesh Sutar', role: 'Head of Infrastructure', image: '/team/bhumesh.jpg' },
-  { name: 'Rishikesh Khade', role: 'Creative Director', image: '/team/rishikesh.jpg' },
-  { name: 'Sarthak Kadam', role: 'Technical Director', image: '/team/sarthak.jpg' } 
+  { name: 'Bhaven Kanwalu', role: 'Head of League Ops', image: '/team/bhavin.jpg' },
+  { name: 'Bhumesh Sutar', role: 'Director Of Broadcast', image: '/team/bhumesh.jpg' },
+  { name: 'Rushikesh Khade', role: 'Head of Quality Control', image: '/team/rishikesh.jpg' },
+  { name: 'Sarthak Kadam', role: 'Member', image: '/team/sarthak.jpg' } 
 ]
 
 onMounted(() => {
