@@ -4,7 +4,7 @@
 
       <!-- Wordmark -->
       <a href="#about" class="navbar__wordmark" @click.prevent="scrollToTop">
-        <img src="/logo.png" alt="Zettasyn Logo" class="navbar__logo-img" />
+        <img src="/logo.png" alt="Zettasyn Logo" class="navbar__logo-img" draggable="false" />
       </a>
 
       <!-- Desktop links -->

@@ -30,7 +30,7 @@
             
             <!-- Logo Section -->
             <div class="firm-logo-wrapper">
-              <img v-if="firm.logo" :src="firm.logo" :alt="firm.name ? firm.name + ' Logo' : 'Venture Logo'" class="firm-logo-img" />
+              <img v-if="firm.logo" :src="firm.logo" :alt="firm.name ? firm.name + ' Logo' : 'Venture Logo'" class="firm-logo-img" draggable="false" />
               <div v-else-if="firm.iconSvg" class="firm-logo-svg" v-html="firm.iconSvg"></div>
               <div v-else class="firm-logo-placeholder">
                 <span>{{ firm.name ? firm.name.charAt(0) : '+' }}</span>

@@ -54,6 +54,11 @@ onMounted(() => {
     window.lenis = lenis
   }
 
+  // Elite Image Protection Fallback: Block standard context menu actions on images
+  if (typeof window !== 'undefined') {
+    window.addEventListener('contextmenu', preventImageContextMenu, { passive: false })
+  }
+
   function raf(time) {
     lenis.raf(time)
     requestAnimationFrame(raf)
@@ -62,9 +67,18 @@ onMounted(() => {
   requestAnimationFrame(raf)
 })
 
+const preventImageContextMenu = (e) => {
+  if (e.target && e.target.tagName === 'IMG') {
+    e.preventDefault()
+  }
+}
+
 onBeforeUnmount(() => {
   if (lenis) {
     lenis.destroy()
+  }
+  if (typeof window !== 'undefined') {
+    window.removeEventListener('contextmenu', preventImageContextMenu)
   }
 })
 </script>

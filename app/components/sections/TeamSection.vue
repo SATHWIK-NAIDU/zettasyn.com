@@ -16,7 +16,7 @@
           <div class="card-inner">
             <div class="holographic-border"></div>
             <div class="image-wrapper">
-              <img v-if="founder.image" :src="founder.image" :alt="founder.name" class="team-img" loading="lazy" decodes="async" />
+              <img v-if="founder.image" :src="founder.image" :alt="founder.name" class="team-img" loading="lazy" decodes="async" draggable="false" />
               <div v-else class="placeholder-img"></div>
             </div>
             <div class="card-info">
@@ -47,7 +47,7 @@
             <div class="card-inner">
               <div class="holographic-border"></div>
               <div class="image-wrapper">
-                <img v-if="member.image" :src="member.image" :alt="member.name" class="team-img" loading="lazy" decodes="async" />
+                <img v-if="member.image" :src="member.image" :alt="member.name" class="team-img" loading="lazy" decodes="async" draggable="false" />
                 <div v-else class="placeholder-img"></div>
               </div>
               <div class="card-info">
