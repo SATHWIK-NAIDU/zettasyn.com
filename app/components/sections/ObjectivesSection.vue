@@ -65,12 +65,12 @@ const grid = ref(null)
 const depthLayers = ref([])
 
 const objectives = [
-  { title: 'Building interconnected ecosystems', polygon: '0,0 100,0 100,80 50,100 0,80' },
-  { title: 'Revolutionizing digital entertainment', polygon: '20,0 80,0 100,50 80,100 20,100 0,50' },
-  { title: 'Empowering creators and developers', polygon: '50,0 100,25 100,75 50,100 0,75 0,25' },
-  { title: 'Creating future-ready technology systems', polygon: '0,20 100,0 100,100 0,80' },
-  { title: 'Delivering cinematic immersive experiences', polygon: '10,10 90,0 100,90 0,100' },
-  { title: 'Building globally scalable infrastructures', polygon: '0,0 100,20 80,100 20,100' }
+  { title: 'Integrating an interconnected operational & technical backbone', polygon: '0,0 100,0 100,80 50,100 0,80' },
+  { title: 'Pioneering ultra-low latency broadcasting & live stream networks', polygon: '20,0 80,0 100,50 80,100 20,100 0,50' },
+  { title: 'Engineering secure, enterprise-grade cloud & IT infrastructures', polygon: '50,0 100,25 100,75 50,100 0,75 0,25' },
+  { title: 'Pushing visual frontiers via avant-garde 3D motion & CGI graphics', polygon: '0,20 100,0 100,100 0,80' },
+  { title: 'Crafting immersive interactive games with rigorous testing cycles', polygon: '10,10 90,0 100,90 0,100' },
+  { title: 'Staging physical esports arenas, concerts, & experiential corporate events', polygon: '0,0 100,20 80,100 20,100' }
 ]
 
 onMounted(() => {
