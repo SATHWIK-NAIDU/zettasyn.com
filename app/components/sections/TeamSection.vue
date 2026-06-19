@@ -78,10 +78,9 @@ const exploreWrapper = ref(null)
 const isExpanded = ref(false)
 
 const founders = [
-  { name: 'Sathwik Mallam', role: 'Chief Executive Officer', image: '/team/sathwik.jpg' },
-  { name: 'Akash Saha', role: 'Chief Operations Officer', image: '/team/akash.jpg' },
+  { name: 'Akash Saha', role: 'Chief Executive Officer', image: '/team/akash.jpg' },
   { name: 'Himanshu Mahajan', role: 'Chief Technology Officer', image: '/team/himanshu.jpg' },
-  { name: 'Divyansh Jain', role: 'Chief Creative Officer', image: '/team/divyansh.jpg' }
+  { name: 'Divyansh Jain', role: 'Chief Operations Officer', image: '/team/divyansh.jpg' }
 ]
 
 const extendedTeam = [
