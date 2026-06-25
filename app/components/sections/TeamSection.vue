@@ -79,8 +79,9 @@ const isExpanded = ref(false)
 
 const founders = [
   { name: 'Akash Saha', role: 'Chief Executive Officer', image: '/team/akash.jpg' },
-  { name: 'Himanshu Mahajan', role: 'Chief Technology Officer', image: '/team/himanshu.jpg' },
-  { name: 'Divyansh Jain', role: 'Chief Operations Officer', image: '/team/divyansh.jpg' }
+  { name: 'Sathwik Mallam', role: 'Cheif Technology Officer', image: '/team/sathwik.jpg'},
+  { name: 'Himanshu Mahajan', role: 'Chief Operations Officer', image: '/team/himanshu.jpg' },
+  { name: 'Divyansh Jain', role: 'Chief Creatives Officer', image: '/team/divyansh.jpg' },
 ]
 
 const extendedTeam = [
